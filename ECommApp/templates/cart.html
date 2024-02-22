@@ -1,0 +1,69 @@
+{% extends "base.html" %}
+{% block title %}
+         Ecart | Product
+{% endblock  %}
+{% block body%}
+<div class="row m-3">
+    <div class="col-md-9">
+      <h5 class="bg-danger text-white p-2">Customer Details</h5>
+      <br>
+      {% if user.is_authenticated %}
+      <p><b>Name:</b>&nbsp; {{user.username}}</p>
+      <p><b>Mobile:</b>&nbsp; 9847493489</p>
+      <p><b>Email:</b>&nbsp; {{user.email}}</p>
+      <br>
+      {% else %}
+      <p><b>Name:</b>&nbsp; Anonymous</p>
+      <p><b>Mobile:</b>&nbsp; 9847493489</p>
+      <p><b>Email:</b>&nbsp; a@gmail.com</p>
+      {% endif %}
+
+      <h5 class="bg-danger text-white p-2">Cart Details</h5>
+   
+      
+      {% for x in item %}
+      <div class="row m-3">
+        <div class="col-md-4">
+          <img src="{{x.product.image.url}}" alt="product" width="100%" height="200px">
+        </div>
+        <div class="col-md-8">
+          <p><b>Product Name:</b>&nbsp;{{x.product.product_name}}</p>
+          <p><b>Product Price:</b>&nbsp;{{x.product.price}}</p>
+          <p><b>Product Quantity:</b>&nbsp;{{x.quantity}}
+          <a href="/updateqty/0/{{x.product.product_id}}"><button class="btn btn-danger">-</button></a>
+          <input readonly="readonly" type="number" value="{{x.quantity}}">
+          <a href="/updateqty/1/{{x.product.product_id}}"><button class="btn btn-danger">+</button></a>
+          </p>
+          <p><b>Product Description:</b>&nbsp;{{x.product.desc}}</p>
+          <a href="/removecart/{{x.product_id}}"><button type="submit" class="btn btn-danger">Remove</button></a>
+          <a href=""><button type="submit" class="btn btn-danger">Buy</button></a>
+        </div>
+        
+      </div>
+      {% empty %}
+      <div>
+        <p>Your Cart is empty... <br>
+          Continue Shopping!!
+
+        </p>
+      </div>
+      {% endfor %}
+      {% if messages %}
+            {% for message in messages %}
+                <div class="alert alert-warning alert-dismissible fade show" role="alert">
+                  {{ message }}
+                  <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
+                {% endfor %}
+            {% endif %} 
+
+    </div>
+  <div class="col-md-3">
+    <h5 class="bg-info text-white p-2">Total Details</h5> 
+    <p><b>Toatl Items({{length}}):</b>&nbsp;&nbsp;{{total}}</p>
+    <hr>
+    <p><b>Toatl Amount:</b>&nbsp;&nbsp;{{total}}</p>
+    <a href="/vieworder"><button class="btn btn-danger">Place Order</button></a>
+  </div>
+</div>  
+{% endblock %}

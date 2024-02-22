@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+{% block title %} Search Product
+  
+{% endblock title %}
+{% block body %}
+    <h1>Search Result for "{{query}}"</h1>
+    
+     <table >
+        <tr>
+            <th>Sr No</th>
+            <th>Product Name</th>
+            <th>Category</th>
+            <th>Price</th>
+        </tr>
+        {% for x in result %}
+        <tr>
+            <td>{{forloop.counter}}</td>
+            <td>{{x.product_name}}</td>
+            <td>{{x.category}}</td>
+            <td>{{x.price}}</td>
+        </tr>
+        {% endfor %}
+     </table>
+
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+
+{% endblock body %}
